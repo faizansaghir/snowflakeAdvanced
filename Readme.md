@@ -33,3 +33,6 @@ Repository to record learning of advanced Snowflake topics
     &emsp;d. Go to S3 bucket and under <code>properties -> Event notifications</code> and create a new event notification. <br>
     &emsp;e. Provide the ARN copied after selecting <code>Destination: SQS queue -> Specify SQS queue: Enter SQS name ARN</code>. <br>
     <em>See ./sql/03_creating_snowpipe.sql</em> <br><br>
+5. <strong>Monitoring and Managing Snowpipes</strong> <br>
+    <em>See ./sql/04_monitoring_and_managing_pipes.sql</em> <br>
+    <em>Note: Recreating a pipe does not delete metadata related to the pipe or notification channel change. </em> <br><br>
