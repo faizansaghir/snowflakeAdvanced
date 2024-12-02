@@ -10,7 +10,7 @@ Repository to record learning of advanced Snowflake topics
     &emsp;d. Navigate to the role in AWS and establish Trust Relationship by providing USER ARN and EXTERNAL ID. <br>
     &emsp;e. Use ./sql/aws/02_loading_data_using_storage_integration.sql to create stage and attach Storage Integration. <br>
     &emsp;d. Load data from stage created. <br><br>
-2<strong>Loading Data From Azure</strong> </br>
+2. <strong>Loading Data From Azure</strong> </br>
     &emsp;a. Use ./sql/aws/01_creating_storage_integration.sql to create a Storage Integration object. <br>
     &emsp;&emsp;Tenant ID is available from your azure account and locations to access should be provided. <br>
     &emsp;b. Describe the Storage Integration object and visit the link under AZURE_CONSENT_URL and grant access. <br>
@@ -20,3 +20,16 @@ Repository to record learning of advanced Snowflake topics
     &emsp;&emsp;Can also be found under Storage Integration description as AZURE_MULTITENANT_APP_NAME. <br>
     &emsp;e. Use ./sql/02_loading_data_using_storage_integration.sql to create stage and attach Storage Integration. <br>
     &emsp;f. Load data from stage created. <br><br>
+3. <strong>Snowpipe Overview </strong> <br>
+    Feature of snowflake that enables loading once a file appears in a bucket. <br>
+    It is used when data needs to be immediately available. <br>
+    Snowpipe uses serverless features instead of using traditional warehouses which is managed by Snowflake. <br>
+    Flow diagram of Snowpipe: 
+    ![Snowpipe Flow Diagram](./img/snowpipeFlowDiagram.PNG "SnowpipeFlowDiagram") <br><br>
+4. <strong>Steps for setting up Snowpipe</strong> <br>
+    &emsp;a. Create stage object with Storage integration(is using Storage integration) and file format(or add it in COPY command). <br>
+    &emsp;b. Test COPY command which works as it will be part of the pipe and needs to work properly. <br>
+    &emsp;c. Create the pipe object, describe the pipe and get the <code>notification_channel</code> attribute. <br>
+    &emsp;d. Go to S3 bucket and under <code>properties -> Event notifications</code> and create a new event notification. <br>
+    &emsp;e. Provide the ARN copied after selecting <code>Destination: SQS queue -> Specify SQS queue: Enter SQS name ARN</code>. <br>
+    <em>See ./sql/03_creating_snowpipe.sql</em> <br><br>
