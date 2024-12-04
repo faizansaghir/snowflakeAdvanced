@@ -36,3 +36,25 @@ Repository to record learning of advanced Snowflake topics
 5. <strong>Monitoring and Managing Snowpipes</strong> <br>
     <em>See ./sql/02_monitoring_and_managing_pipes.sql</em> <br>
     <em>Note: Recreating a pipe does not delete metadata related to the pipe or notification channel change. </em> <br><br>
+6. <strong>Time Travel in Snowflake</strong> <br>
+    Advantages of Time: <br>
+    &emsp;a. We can query deleted or updated data <br>
+    &emsp;b. Restore tables, schemas, and databases that have been dropped <br>
+    &emsp;c. Create clones of tables, schemas and databases from previous state <br>
+    Different ways to use time travel: <br>
+    &emsp;a. <strong>TIMESTAMP</strong>: By providing timestamp from when we want to query. <br>
+    &emsp;b. <strong>OFFSET</strong>: By providing offset i.e. look-back duration (in seconds). <br>
+    &emsp;c. <strong>QUERY ID/ STATEMENT</strong>: By providing query id before which we want to get state as statement. <br>
+    &emsp;d. <strong>UNDROP TABLE/ SCHEMA/ DATABASE</strong>: Undo drop of table, schema or database if within recovery range. <br>
+    <em>Note: Cannot undrop if another object of same name already exists, solution is to rename current object and then undrop. <br>
+    &emsp;Should have ownership privileges for an object to be restored. <br> 
+    See ./sql/03_using_time_travel.sql</em> <br><br>
+7. <strong>Restoring Data Using Time Travel</strong> <br>
+    The usual approach which can cause issue is as follows: <br>
+    &emsp;Using <code>CREATE OR REPLACE TABLE</code> which will create a new table with same name but with different underlying id. <br>
+    &emsp;This will cause us to lose any time travel or history of the previous table with same name but different ID. <br>
+    The recommended approach is as follows: <br>
+    &emsp;a. Create a temp table with state of table which you want to revert to. <br>
+    &emsp;b. Truncate current table. This will retain time travel/ query history of the current table. <br>
+    &emsp;c. Copy values from temp table to current table using <code>INSERT INTO</code> and <code>SELECT</code> commands. <br>
+    <em>See ./sql/04_restoring_data_using_time_travel.sql</em> <br><br>
