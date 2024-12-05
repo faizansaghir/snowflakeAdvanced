@@ -58,3 +58,10 @@ Repository to record learning of advanced Snowflake topics
     &emsp;b. Truncate current table. This will retain time travel/ query history of the current table. <br>
     &emsp;c. Copy values from temp table to current table using <code>INSERT INTO</code> and <code>SELECT</code> commands. <br>
     <em>See ./sql/04_restoring_data_using_time_travel.sql</em> <br><br>
+8. <strong>Restoring Data Using UNDROP Command</strong> <br>
+    &emsp;a. We can undrop a dropped table, schema or database with all its objects. <br>
+    &emsp;b. If we have used the bad method of time travel and now unable to get the previous table, we can use rename table and undrop. <br>
+    &emsp;&emsp;i. Rename the current table with same name to a different name table. <br>
+    &emsp;&emsp;ii. Undrop the table with desired name. <br>
+    &emsp;&emsp;iii. Use time travel feature and query history of the desired table. <br>
+    <em>See ./sql/05_restoring_data_using_undrop.sql</em> <br><br>
