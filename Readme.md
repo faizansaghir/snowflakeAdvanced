@@ -65,3 +65,10 @@ Repository to record learning of advanced Snowflake topics
     &emsp;&emsp;ii. Undrop the table with desired name. <br>
     &emsp;&emsp;iii. Use time travel feature and query history of the desired table. <br>
     <em>See ./sql/05_restoring_data_using_undrop.sql</em> <br><br>
+9. <strong>Retention Period</strong> <br>
+    &emsp;a. The default retention period set for tables is 1 day. <br>
+    &emsp;b. The standard edition allows retention for 1 day but other editions can allow increasing retention period up to 90 days. <br>
+    &emsp;c. As we increase the retention period, the storage cost increases with it. <br>
+    &emsp;d. Each time we run a query which has time travel feature associated, we create additional storage for changes made. <br>
+    &emsp;&emsp;These changes history if made for a lot of times can accumulate to cost us high storage charge. <br>
+    <em>See ./sql/06_retention_period.sql for setting retention period and to get cost of each table with time travel</em> <br><br>
