@@ -72,3 +72,10 @@ Repository to record learning of advanced Snowflake topics
     &emsp;d. Each time we run a query which has time travel feature associated, we create additional storage for changes made. <br>
     &emsp;&emsp;These changes history if made for a lot of times can accumulate to cost us high storage charge. <br>
     <em>See ./sql/06_retention_period.sql for setting retention period and to get cost of each table with time travel</em> <br><br>
+10. <strong>Fail Safe</strong> <br>
+    Used to recover data from disaster. After the time travel period ends, fail-safe support starts for next 7 days. <br>
+    For recovering data using fail-safe method, we need to reach our to Snowflake team. <br>
+    &emsp;a. It is 7 days for permanent tables and 0 for transient tables. <br>
+    &emsp;b. Storage cost is incurred by us for this fail-safe feature by default. <br>
+    &emsp;c. If the table still exists, but the time travel date has passed, we can get back state using fail-safe feature. <br>
+    <em>See ./sql/07_fail_safe_metric_query.sql</em> <br><br>
