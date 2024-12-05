@@ -79,3 +79,11 @@ Repository to record learning of advanced Snowflake topics
     &emsp;b. Storage cost is incurred by us for this fail-safe feature by default. <br>
     &emsp;c. If the table still exists, but the time travel date has passed, we can get back state using fail-safe feature. <br>
     <em>See ./sql/07_fail_safe_metric_query.sql</em> <br><br>
+11. <strong>Types of Tables</strong> <br>
+    &emsp;a. Permanent: Has features of time travel as well as fail-safe. Resides in storage memory until dropped. <br>
+    &emsp;b. Transient: Has features of time travel but not fail-safe. Resides in storage memory until dropped. <br>
+    &emsp;c. Temporary: Has features of time travel but not fail-safe. Resides in storage memory until session ends. <br>
+    <em>Note: Similar to Tables, schemas and other objects can also be permanent, transient or temporary. <br>
+    eg: for schema with transient nature, all tables inside it will be transient only. <br>
+    If we create a temporary table with same name as permanent table in a schema, it will not replace the permanent table. <br>
+    The temporary table will override the permanent table for the session.</em> <br>
