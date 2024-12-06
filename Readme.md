@@ -86,4 +86,24 @@ Repository to record learning of advanced Snowflake topics
     <em>Note: Similar to Tables, schemas and other objects can also be permanent, transient or temporary. <br>
     eg: for schema with transient nature, all tables inside it will be transient only. <br>
     If we create a temporary table with same name as permanent table in a schema, it will not replace the permanent table. <br>
-    The temporary table will override the permanent table for the session.</em> <br>
+    The temporary table will override the permanent table for the session.</em> <br><br>
+12. <strong>Zero Copy Cloning</strong> <br>
+    We can clone any object in Snowflake. The child objects will also be cloned like cloning schema will clone tables also. <br>
+    The child objects will inherit all the privileges but the source object being cloned will not inherit the privileges. <br>
+    Privileges needed for cloning: <br>
+    &emsp;a. To clone a table, SELECT privileges on the tables should be there. <br>
+    &emsp;b. To clone a Pipe, stream and task, OWNERSHIP privileges should be there. <br>
+    &emsp;c. To clone any other object, USAGE privileges should be there. <br>
+    In Zero COPY cloning when a table is cloned, the source and cloned table share same storage. <br>
+    Once we make changes to the new storage, we will only store the deltas thus reducing storage cost. <br>
+    The load history is not copied thus reloading same file to source will skip the files but will be copied in cloned table <br>
+    An object clone inherits any metadata, such as comments or table clustering keys. <br> 
+    <em>Cloning PERMANENT table to TRANSIENT or TEMPORARY table works, but not vice versa</em> <br>
+    ![Zero Copy Cloning](./img/zeroCopyCloning.PNG "ZeroCopyCloning") <br>
+    We can also clone tables in combination with time travel feature. <br>
+    <em>See ./sql/08_zero_copy_cloning.sql</em> <br><br>
+13. <strong>Swapping</strong> <br>
+    Similar to Zero Copy Cloning, we can swap 2 tables, schemas using Swapping feature. <br>
+    The storage is kept same but the tables reference the underlying storage of the other table. <br>
+    ![Swapping Tables](./img/swappingTables.PNG "SwappingTables") <br>
+    <em>See ./sql/09_swapping.sql</em> <br><br>
