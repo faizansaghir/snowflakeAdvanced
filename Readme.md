@@ -107,3 +107,30 @@ Repository to record learning of advanced Snowflake topics
     The storage is kept same but the tables reference the underlying storage of the other table. <br>
     ![Swapping Tables](./img/swappingTables.PNG "SwappingTables") <br>
     <em>See ./sql/09_swapping.sql</em> <br><br>
+14. <strong>Data Sharing between 2 Snowflake Accounts</strong> <br>
+    Data can be shared from one account to another using Data sharing feature of snowflake. <br>
+    This is just a metadata operation and does not involve copying of data. <br>
+    The producer pays for the storage but the consumer pays for any compute they do on the data using their warehouses. <br> 
+    To create a data sharing object:
+    <ol>
+        <li>Create a share object which is a container which contains metadata</li>
+        <li>Grant access to schema, databases, and tables as per requirements</li>
+        <li>Add account detail of account that can access the share object</li>
+        <li>In the consumer account, create database using the share object</li>
+    </ol>
+    We can also create share object using UI. Go to Data Products -> Private Sharing. <br>
+    In this you can also get details of all share object created by you and modify existing share objects also. <br>
+    <em>See ./sql/10_data_sharing_1.sql</em> <br><br>
+15. <strong>Data Sharing between Snowflake account and Non-Snowflake User</strong> <br>
+    The producer will create a share account and a reader account using which the consumer can consume data. <br>
+    The cost of storage and compute are both charged from producer as the producer has created the read only account. <br>
+    To create a data sharing object:
+    <ol>
+        <li>Create a reader account i.e. a managed account of type <code>READER</code></li>
+        <li>Create a share object which is a container which contains metadata</li>
+        <li>Grant access to schema, databases, and tables as per requirements</li>
+        <li>Add account detail of account that can access the share object</li>
+        <li>In the reader account, create database using the share object</li>
+    </ol>
+    We can also create managed account using UI. Go to Data Products -> Private Sharing -> Reader Accounts. <br>
+    <em>See ./sql/11_data_sharing_2.sql</em> <br><br>
