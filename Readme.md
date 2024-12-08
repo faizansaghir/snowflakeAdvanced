@@ -134,3 +134,17 @@ Repository to record learning of advanced Snowflake topics
     </ol>
     We can also create managed account using UI. Go to Data Products -> Private Sharing -> Reader Accounts. <br>
     <em>See ./sql/11_data_sharing_2.sql</em> <br><br>
+16. <strong>Data sharing for Entire Schema/ Database</strong> <br>
+    We can grant permission to all tables in a schema or database at once. <br>
+    This is only for tables present at the time of granting permission, any new table created will not be part of it. <br>
+    Any update to existing table will also be reflected in consumer/reader tables. <br>
+    Any new table created in database or schema will not be reflected on the consumer account. <br>
+    <em>See ./sql/12_data_sharing_3.sql</em> <br><br>
+17. <strong>Secure View</strong> <br>
+    A view is used to secure our data and reveal only columns and rows(using where clause) which we want to share. <br>
+    This view when used with <code>DESCRIBE</code> or <code>SHOW VIEWS</code> command, show the definition of the view. <br>
+    This can lead to revealing column names, or row values that we do not want to reveal. <br>
+    eg: If we have CREATE VIEW AS SELECT first_name, last_name FROM customers WHERE email NOT LIKE '%@gmail.com'
+    The view definition would reveal that there is column called email and the email column has values like '%@gmail.com'. <br>
+    To overcome this issue, we use Secure Views. This does not show the view definition at all. <br>
+    
