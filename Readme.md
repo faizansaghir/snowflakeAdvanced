@@ -147,4 +147,6 @@ Repository to record learning of advanced Snowflake topics
     eg: If we have CREATE VIEW AS SELECT first_name, last_name FROM customers WHERE email NOT LIKE '%@gmail.com'
     The view definition would reveal that there is column called email and the email column has values like '%@gmail.com'. <br>
     To overcome this issue, we use Secure Views. This does not show the view definition at all. <br>
-    
+    <em>See ./sql/13_sharing_views.sql</em> <br>
+    In case our secure view uses multiple databases, we need to also give REFERENCE_USAGE to share object. <br>
+    <em>See ./sql/14_secure_view_with_multiple_database.sql</em> <br><br>
