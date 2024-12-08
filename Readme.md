@@ -150,3 +150,9 @@ Repository to record learning of advanced Snowflake topics
     <em>See ./sql/13_sharing_views.sql</em> <br>
     In case our secure view uses multiple databases, we need to also give REFERENCE_USAGE to share object. <br>
     <em>See ./sql/14_secure_view_with_multiple_database.sql</em> <br><br>
+18. <strong>Sampling Feature in Snowflake</strong> <br>
+    We need sampling if we are working on DEV and want to test our solution on some subset of the production data. <br>
+    Since the production data can be very large, we can use sampling to select a subset of data and perform analysis or testing. <br>
+    This sampling would help us reduce cost and time for execution of our solution and analysis. <br>
+    ![Sampling Types](./img/samplingTypes.PNG "SamplingTypes")
+    <em>See ./sql/15_sampling_data.sql</em> <br><br>
