@@ -156,3 +156,7 @@ Repository to record learning of advanced Snowflake topics
     This sampling would help us reduce cost and time for execution of our solution and analysis. <br>
     ![Sampling Types](./img/samplingTypes.PNG "SamplingTypes")
     <em>See ./sql/15_sampling_data.sql</em> <br><br>
+19. <strong>Scheduling Tasks</strong> <br>
+    A task is a SQL statement that can be executed at a particular time or on scheduled intervals. <br>
+    It can run on both a warehouse or can be serverless. <br>
+    <em>See ./sql/16_scheduling_tasks.sql</em> <br><br>
