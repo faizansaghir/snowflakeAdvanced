@@ -158,11 +158,13 @@ Repository to record learning of advanced Snowflake topics
     <em>See ./sql/15_sampling_data.sql</em> <br><br>
 19. <strong>Scheduling Tasks</strong> <br>
     A task is a SQL statement that can be executed at a particular time or on scheduled intervals. <br>
+    A task can execute a single SQL statement, including a call to a stored procedure. <br>
     It can run on both a warehouse or can be serverless. <br>
     <em>See ./sql/16_scheduling_tasks.sql</em> <br><br>
 20. <strong>Tree Of Tasks</strong> <br>
     A task not necessarily needs to be scheduled, it can be dependent on execution of another tasks. <br>
     This upstream task may be scheduled or another dependent task. Thus creating a tree as multiple task may have same upstream. <br>
     We can also call a stored procedure and also get the history of task execution. <br>
+    An individual task can have only a single predecessor (parent) task. <br>
     We can also specify a condition to check before running the task using <code>WHEN &lt;condition&gt;</code> as parameter while creating the task. <br>
     <em>See ./sql/17_tree_of_tasks.sql</em> <br><br>
