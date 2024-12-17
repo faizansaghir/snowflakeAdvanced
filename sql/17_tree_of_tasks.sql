@@ -85,3 +85,62 @@ DROP TASK CUSTOMER_INSERT3;
 
 SHOW TASKS;
 
+// Create a stored procedure
+USE TASK_DB;
+
+SELECT * FROM CUSTOMERS;
+
+
+
+CREATE OR REPLACE PROCEDURE CUSTOMERS_INSERT_PROCEDURE (CREATE_DATE varchar)
+    RETURNS STRING NOT NULL
+    LANGUAGE JAVASCRIPT
+    AS
+        $$
+        var sql_command = 'INSERT INTO CUSTOMERS(CREATE_DATE) VALUES(:1);'
+        snowflake.execute(
+            {
+            sqlText: sql_command,
+            binds: [CREATE_DATE]
+            });
+        return "Successfully executed.";
+        $$;
+
+
+
+CREATE OR REPLACE TASK CUSTOMER_TAKS_PROCEDURE
+WAREHOUSE = COMPUTE_WH
+SCHEDULE = '1 MINUTE'
+AS CALL  CUSTOMERS_INSERT_PROCEDURE (CURRENT_TIMESTAMP);
+
+
+SHOW TASKS;
+
+ALTER TASK CUSTOMER_TAKS_PROCEDURE RESUME;
+
+SHOW TASKS;
+
+// Use the table function "TASK_HISTORY()"
+select *
+  from table(information_schema.task_history())
+  order by scheduled_time desc;
+
+select *
+from table(information_schema.task_history(
+    scheduled_time_range_start=>dateadd('hour',-4,current_timestamp()),
+    result_limit => 5,
+    task_name=>'CUSTOMER_TAKS_PROCEDURE'));
+
+// See results for a given time period
+select *
+  from table(information_schema.task_history(
+    scheduled_time_range_start=>to_timestamp_ltz('2021-04-22 11:28:32.776 -0700'),
+    scheduled_time_range_end=>to_timestamp_ltz('2021-04-22 11:35:32.776 -0700')));
+
+SELECT TO_TIMESTAMP_LTZ(CURRENT_TIMESTAMP)
+
+SELECT * FROM CUSTOMERS;
+
+ALTER TASK CUSTOMER_TAKS_PROCEDURE SUSPEND;
+
+SHOW TASKS;

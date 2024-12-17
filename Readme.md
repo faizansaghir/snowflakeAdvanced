@@ -163,4 +163,5 @@ Repository to record learning of advanced Snowflake topics
 20. <strong>Tree Of Tasks</strong> <br>
     A task not necessarily needs to be scheduled, it can be dependent on execution of another tasks. <br>
     This upstream task may be scheduled or another dependent task. Thus creating a tree as multiple task may have same upstream. <br>
+    We can also call a stored procedure and also get the history of task execution.
     <em>See ./sql/17_tree_of_tasks.sql</em> <br><br>
