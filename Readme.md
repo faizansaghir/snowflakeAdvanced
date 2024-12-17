@@ -160,3 +160,7 @@ Repository to record learning of advanced Snowflake topics
     A task is a SQL statement that can be executed at a particular time or on scheduled intervals. <br>
     It can run on both a warehouse or can be serverless. <br>
     <em>See ./sql/16_scheduling_tasks.sql</em> <br><br>
+20. <strong>Tree Of Tasks</strong> <br>
+    A task not necessarily needs to be scheduled, it can be dependent on execution of another tasks. <br>
+    This upstream task may be scheduled or another dependent task. Thus creating a tree as multiple task may have same upstream. <br>
+    <em>See ./sql/17_tree_of_tasks.sql</em> <br><br>
