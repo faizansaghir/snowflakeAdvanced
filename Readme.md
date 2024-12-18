@@ -188,7 +188,8 @@ Repository to record learning of advanced Snowflake topics
     When we <strong>delete</strong> an entry in source table, a stream captures it as single row: <br>
     Row with <code>METADATA$ACTION</code> as DELETE, <code>METADATA$UPDATE</code> as FALSE and with old values. <br>
     This row can be consumed as per our requirement. <br>
-    <em>See ./sql/20_streams_and_delete_operation.sql</em> <br><br>
+    <em>See ./sql/20_streams_and_delete_operation.sql</em> <br>
+    <em>See ./sql/21_streams_and_all_operations.sql</em> <br><br>
 22. <strong>How does Stream work?</strong> <br>
     When we create a stream on a table, it adds the 3 columns to the table but these columns will be hidden. <br>
     Apart from this, it also has a <code>OFFSET</code> which will initially be the time when stream was created. <br>
