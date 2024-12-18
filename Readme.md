@@ -178,10 +178,26 @@ Repository to record learning of advanced Snowflake topics
     The stream does not actually store the actual data related to the delta rows, rather it queries the original table only. <br>
     Once the stream is consumed(used with <code>INSERT</code> or <code>MERGE</code> command), it removes the consumed rows automatically. <br>
     <em>See ./sql/18_streams_and_insert_operation.sql</em> <br>
-    When we update an entry in source table, a stream captures it as 2 rows: <br>
+    When we <strong>update</strong> an entry in source table, a stream captures it as 2 rows: <br>
     <ul>
         <li>Row with <code>METADATA$ACTION</code> as DELETE, <code>METADATA$UPDATE</code> as TRUE and with old values</li>
         <li>Row with <code>METADATA$ACTION</code> as INSERT, <code>METADATA$UPDATE</code> as TRUE and with new values</li>
     </ul>
     These 2 rows can be consumed as per our requirement, we can choose to only consider any one of the entries while discarding other. <br>
-    <em>See ./sql/18_streams_and_update_operation.sql</em> <br><br>
+    <em>See ./sql/19_streams_and_update_operation.sql</em> <br>
+    When we <strong>delete</strong> an entry in source table, a stream captures it as single row: <br>
+    Row with <code>METADATA$ACTION</code> as DELETE, <code>METADATA$UPDATE</code> as FALSE and with old values. <br>
+    This row can be consumed as per our requirement. <br>
+    <em>See ./sql/20_streams_and_delete_operation.sql</em> <br><br>
+22. <strong>How does Stream work?</strong> <br>
+    When we create a stream on a table, it adds the 3 columns to the table but these columns will be hidden. <br>
+    Apart from this, it also has a <code>OFFSET</code> which will initially be the time when stream was created. <br>
+    Once we use a DML operation on table, the OFFSET of stream is different from latest OFFSET of table. <br>
+    After this, even if we consume just a single row from the stream, it will update the OFFSET of stream to current timestamp. <br>
+    The stream also has a <code>stale_after</code> which shows post what time the stream can not be used. <br>
+    This is dependent on the retention period of the data in the table which can be up to 14 days. <br>
+    If the underlying data is not present, then stream will not be able to track the changes thus making it useless. <br>
+    Also the <code>stale</code> flag turns to <code>TRUE</code>. <br>
+    Once the data is consumed from stream, the <code>stale_after</code> also changes. <br>
+    Streams keep minimal set of changes from OFFSET to NOW <br> 
+    &emsp;i.e. say if a row is updated multiple times, it will only store the initial state as DELETE and the current state as INSERT. <br><br>
