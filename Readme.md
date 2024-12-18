@@ -168,3 +168,20 @@ Repository to record learning of advanced Snowflake topics
     An individual task can have only a single predecessor (parent) task. <br>
     We can also specify a condition to check before running the task using <code>WHEN &lt;condition&gt;</code> as parameter while creating the task. <br>
     <em>See ./sql/17_tree_of_tasks.sql</em> <br><br>
+21. <strong>Streams</strong> <br>
+    When we load data from DB to our Warehouse, we use ETL(Extract Transform Load) process. <br>
+    We usually bring in only deltas i.e. not the full snapshot, rather only the DML(Data Manipulation Language) changes. <br>
+    These can be <code>Delete</code>, <code>Insert</code> or <code>Update</code> operations and a streams captures these changes. <br>
+    A stream captures all the columns of the delta row and adds additional columns of metadata. <br>
+    The additional columns contained in stream will be <code>METADATA$ACTION</code>, <code>METADATA$UPDATE</code> and <code>METADATA$ROW_ID</code>. <br>
+    This process of capturing changes is called CDC(Change Data Capture). This is done without data duplication. <br>
+    The stream does not actually store the actual data related to the delta rows, rather it queries the original table only. <br>
+    Once the stream is consumed(used with <code>INSERT</code> or <code>MERGE</code> command), it removes the consumed rows automatically. <br>
+    <em>See ./sql/18_streams_and_insert_operation.sql</em> <br>
+    When we update an entry in source table, a stream captures it as 2 rows: <br>
+    <ul>
+        <li>Row with <code>METADATA$ACTION</code> as DELETE, <code>METADATA$UPDATE</code> as TRUE and with old values</li>
+        <li>Row with <code>METADATA$ACTION</code> as INSERT, <code>METADATA$UPDATE</code> as TRUE and with new values</li>
+    </ul>
+    These 2 rows can be consumed as per our requirement, we can choose to only consider any one of the entries while discarding other. <br>
+    <em>See ./sql/18_streams_and_update_operation.sql</em> <br><br>
