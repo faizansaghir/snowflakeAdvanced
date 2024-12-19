@@ -212,3 +212,16 @@ Repository to record learning of advanced Snowflake topics
     We can use similar attributes as in time travel to get snapshot at 2 different time. <br>
     This also  has modes that we can pass like append only during function call and also tracks minimal changes as in streams. <br>
     <em>See ./sql/24_change_tracking.sql</em> <br><br>
+25. <strong>Materialized Views</strong> <br>
+    A view is a SQL statement that queries one or more tables and gets data on the go thus having the latest data. <br>
+    A simple view is recomputed every time we run a query to get data using view, thus it will increase cost. <br>
+    A materialized view comes into picture if a view is frequently used, and we do not want to recompute it. <br>
+    A materialized view is discarded if the data in underlying table(s) changes, lese it behaves as a regular table. <br>
+    There is additional cost that is associated with a materialized view as it has to be managed to check if it is stale. <br>
+    Snowflake uses serverless compute associated to materialized view which adds to more compute cost of maintenance. <br>
+    We should not use materialized view if data changes very frequently and underlying table has large amount of data. <br>
+    We can in this case use alternative such as combination of Tasks and Streams along with actual table to get same results. <br>
+    It is supported in Enterprise edition and above, and does not support self-joins and limited set of aggregation functions. <br>
+    We can also not use UDFs, HAVING clauses, ORDER BY clauses, or LIMIT clause. <br> 
+    Ideal scenario for Materialized view, query takes long, data updated rarely and view used often. <br> 
+    <em>See ./sql/25_materialized_view.sql</em> <br><br>
