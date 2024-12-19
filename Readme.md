@@ -202,3 +202,13 @@ Repository to record learning of advanced Snowflake topics
     Once the data is consumed from stream, the <code>stale_after</code> also changes. <br>
     Streams keep minimal set of changes from OFFSET to NOW <br> 
     &emsp;i.e. say if a row is updated multiple times, it will only store the initial state as DELETE and the current state as INSERT. <br><br>
+23. <strong>Append Only Streams</strong> <br>
+    These streams track only insert into the table and ignores delete or update into the table. <br>
+    We can empty <code>APPEND_ONLY</code>/ <code>DEFAULT</code> stream using <code>CREATE TABLE [table] AS SELECT * FROM [stream]</code> <br>
+    <em>See ./sql/23_append_only_stream.sql</em> <br><br>
+24. <strong>Change Tracking</strong> <br>
+    Change tracking is an attribute of a table which is internally used by streams also. <br>
+    If change tracking is enabled, we can get the difference between 2 snapshot of table if they are within time travel scope. <br>
+    We can use similar attributes as in time travel to get snapshot at 2 different time. <br>
+    This also  has modes that we can pass like append only during function call and also tracks minimal changes as in streams. <br>
+    <em>See ./sql/24_change_tracking.sql</em> <br><br>
