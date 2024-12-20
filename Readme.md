@@ -225,3 +225,11 @@ Repository to record learning of advanced Snowflake topics
     We can also not use UDFs, HAVING clauses, ORDER BY clauses, or LIMIT clause. <br> 
     Ideal scenario for Materialized view, query takes long, data updated rarely and view used often. <br> 
     <em>See ./sql/25_materialized_view.sql</em> <br><br>
+26. <strong>Masking Policy</strong> <br>
+    If we want to control how a column data can be viewed by different role, we can add masking policy to the column. <br>
+    In the masking policy, we can specify how the masked value is to be generated for different roles. <br>
+    Policy is also an object defined in our schema which can be used/ re-used with multiple columns. <br>
+    Once a policy is associated to any column(s), we cannot drop it or recreate it unless we remove the masking from all column(s). <br>
+    However we can modify the masking policy by setting a new body definition for the masking policy. <br>
+    A column can only be associated to 1 masking policy. <br> 
+    <em>See ./sql/26_masking_policy.sql</em> <br><br>
