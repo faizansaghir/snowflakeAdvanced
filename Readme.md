@@ -233,3 +233,30 @@ Repository to record learning of advanced Snowflake topics
     However we can modify the masking policy by setting a new body definition for the masking policy. <br>
     A column can only be associated to 1 masking policy. <br> 
     <em>See ./sql/26_masking_policy.sql</em> <br><br>
+27. <strong>Snowflake Roles and Access Management</strong> <br>
+    ![Access Management](./img/accessManagement.PNG "AccessManagement")
+    We have 2 types of access:
+    <ul>
+        <li>Discretionary Access Control(DAC): Owner of the object. Can assign privileges on object to other roles.</li>
+        <li>Role Based Access Control(RBAC): Access privileges are assigned to roles, which are in turn assigned to users. </li>
+    </ul>
+    
+    ![Securable Objects](./img/securableObjects.PNG "SecurableObjects")
+    <em>Note: There is a single owner role(multiple users) of these objects which has all privileges by default.</em> <br><br>
+28. <strong>Roles And Hierarchy</strong> <br>
+    ![Roles And Hierarchy](./img/rolesAndHierarchy.PNG "RolesAndHierarchy")
+    <ol>
+        <li>Account Admin: Has all privileges of SecurityAdmin + SysAdmin + some additional</li>
+        <li>SecurityAdmin: Has all roles similar to AccountAdmin but can not view cost related things. <br>
+            Since it also is UserAdmin, it is used for creating roles and users and any object grant globally.</li>
+        <li>SysAdmin: Is capable of creating warehouses, databases etc. and manage all objects. <br>
+            Any role created by SecurityAdmin should be assigned to SysAdmin also.<br>
+            This means that SysAdmin has all privileges of all custom users created</li>
+    </ol>
+    
+    <strong>Why should we assign all custom roles to SysAdmin?</strong> <br>
+    Since SysAdmin creates warehouses and databases, it can grant ownership to custom roles. <br>
+    If the custom role is not in hierarchy of the SysAdmin, it will lose ownership after granting it to custom role. <br>
+    The custom role can then act independently even though the ownership should have been with SysAdmin also. <br>
+    If the hierarchy is created i.e. all custom roles are assigned to SysAdmin, after giving ownership to roles, <br>
+    the SysAdmin will also have ownership over the object as it will be higher in hierarchy than the custom role. <br><br>
