@@ -260,3 +260,21 @@ Repository to record learning of advanced Snowflake topics
     The custom role can then act independently even though the ownership should have been with SysAdmin also. <br>
     If the hierarchy is created i.e. all custom roles are assigned to SysAdmin, after giving ownership to roles, <br>
     the SysAdmin will also have ownership over the object as it will be higher in hierarchy than the custom role. <br><br>
+29. <strong>Best Practices</strong> <br>
+    <strong><em>Warehouse</em></strong>: <br>
+    &emsp; i. Enable Auto-Suspend unless the load is steady, and we are using cache of warehouse. <br>
+    &emsp;&emsp; When we suspend warehouse, it takes some seconds to reboot if needed, and it looses its cache. <br>
+    &emsp; ii. Enable Auto-Resume if we have Auto-Suspend enabled. <br>
+    &emsp; iii. We should set auto-suspend to some appropriate values so that can use cache if we are having small gap. <br>
+    &emsp; iv. Choose size based on workload. Choose higher size and then go to lower size so-as to get a threshold.<br>
+    <strong><em>Table</em></strong>: <br>
+    &emsp; i. Choose appropriate table type like Transient for Staging area as we load data in these table for very short time. <br>
+    &emsp;&emsp; Also the time travel can cause a lot of useless storage cost as the data is available post transformation. <br>
+    &emsp; ii. Use appropriate data type like Date for storing date instead of Varchar. <br>
+    &emsp; iii. Set cluster keys only if necessary. Use if table is large or query time of table is large compared to query runtime. <br>
+    &emsp;&emsp; We can also use in Dimension of table when we filter based on column such as region but load based on date. <br>
+    <strong><em>Retention Period</em></strong>: <br>
+    &emsp; i. Staging database or tables, use 0 days(transient) <br>
+    &emsp; ii. Production database or tables, use 4-7 days(1 day min) <br>
+    &emsp; iii. Large high-churn tables, i.e. tables where data is changing very frequently and in large number. <br>
+    &emsp;&emsp; This can cause very high storage cost for time travel thus we can consider having 0 day retention period. <br><br>
